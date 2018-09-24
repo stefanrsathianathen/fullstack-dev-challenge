@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CurrencyInput from './components/CurrencyInput'
 import SliderInput from './components/SliderInput'
 import DisplayGraph from './components/DisplayGraph'
+import PeriodSelector from './components/PeriodSelector'
 import './App.css';
 
 class App extends Component {
@@ -17,9 +18,13 @@ class App extends Component {
 
 					<p className="input-label">How much will you save each month?</p>
 					<CurrencyInput defaultValue={0}/>
-
-					<p className="input-label">How much interest will you earn per year?</p>
+          
+          <p className="input-label">How often will you be paid interest</p>
+          <PeriodSelector defaultValue={3}/>
+					
+          <p className="input-label">Interest Rate?</p>
 					<SliderInput defaultValue={4}/>
+          
 				</div>
 				<div className="financial-display">
 					{/*We have included some sample data here, you will need to replace this
@@ -27,11 +32,11 @@ class App extends Component {
 					<DisplayGraph data={[
 						{
 							month: 1,
-							amount:500
+							amount:234
 						},
 						{
 							month: 2,
-							amount:700
+							amount:10000
 						},
 						{
 							month: 3,
