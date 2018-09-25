@@ -3,7 +3,11 @@ import CurrencyInput from './components/CurrencyInput'
 import SliderInput from './components/SliderInput'
 import DisplayGraph from './components/DisplayGraph'
 import PeriodSelector from './components/PeriodSelector'
-import './App.css';
+import './App.css'
+import axios from 'axios'
+
+const API = 'http://localhost:3001/';
+
 
 class App extends Component {
 
@@ -14,7 +18,8 @@ class App extends Component {
             initialSavings: 0,
             monthlyDeposit: 0,
             interestRate: 0,
-            interestPaymentFrequency: 12
+            interestPaymentFrequency: 1,
+            data: []
         };
     }
   //update value held in state
@@ -24,7 +29,22 @@ class App extends Component {
         this.setState({ [field]: parsedValue });
   }
 
+  // https://hackernoon.com/tutorial-how-to-make-http-requests-in-react-part-3-daa6b31b66be
+  calculateLifeTimeValue() {
+    return axios.get(API+this.state.interestPaymentFrequency + '/' + this.state.initialSavings + '/' + this.state.monthlyDeposit + '/' + this.state.interestRate ).then(response => {
+       this.setState({data:response.data});
+      })
+    .catch(function (error) {
+        console.log(error);
+    })
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    this.calculateLifeTimeValue()
+  }
+
   render() {
+    
     //update state value on change 
     return (
       <div className="App">
@@ -62,26 +82,7 @@ class App extends Component {
           
 				</div>
 				<div className="financial-display">
-					{/*We have included some sample data here, you will need to replace this
-					with your own. Feel free to change the data structure if you wish.*/}
-					<DisplayGraph data={[
-						{
-							month: 1,
-							amount:234
-						},
-						{
-							month: 2,
-							amount:10000
-						},
-						{
-							month: 3,
-							amount:1000
-						},
-						{
-							month: 4,
-							amount:1500
-						}
-					]}/>
+					<DisplayGraph data={this.state.data}/>
 				</div>
       </div>
     );
@@ -89,3 +90,5 @@ class App extends Component {
 }
 
 export default App;
+
+

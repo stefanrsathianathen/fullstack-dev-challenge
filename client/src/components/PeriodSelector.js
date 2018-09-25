@@ -22,14 +22,14 @@ export default class PeriodSelector extends React.Component{
       <div value={this.state.value}>
         <select 
           onChange={this.handleChange.bind(this)}>
+          <option value="1">
+            Annually
+          </option>
           <option value= '12' >
             Monthly
           </option>
           <option value="4">
             Quarterly
-          </option>
-          <option value="1">
-            Annually
           </option>
         </select>
       </div>
