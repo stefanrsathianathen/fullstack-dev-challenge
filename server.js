@@ -21,15 +21,54 @@ function calculate(interestRateFreq,initalAmount,monthlyDeposit,interestRate){
   interestRate = interestRate/100;
   let i = 1;
   let datapoints = [{month: i,amount:initalAmount}];
+  let savings = initalAmount;
   for(i; i <= MONTHS; i++){
-    let powerPart = Math.pow((1+(interestRate/interestRateFreq)),(interestRateFreq*(i/12)));
-    compoundInterestPrincipal = initalAmount*powerPart;
-    futureValueSeries = monthlyDeposit * ((powerPart-1)/ (interestRate/interestRateFreq));
+    if (i%(12/interestRateFreq)==0){
+      savings *= (1+interestRate/interestRateFreq);
+    }
+    savings += 100;
 
-    datapoints.push({month: i+1,amount:compoundInterestPrincipal+futureValueSeries});
+    datapoints.push({month: i+1,amount:savings});
   }
   return datapoints;
 }
+
+
+
+// Compound interest for principal:
+
+// P(1+r/n)(nt)
+
+// Future value of a series:
+
+// PMT × {[(1 + r/n)(nt) - 1] / (r/n)}
+
+
+// function calculate(n, p, PMT, r){
+
+//   const N_MONTHS = 50*12;  // calculate amounts for each month for 5 years
+//   console.log(r);
+//   r /= 100.0;   // convert r from % to decimal
+
+//   let i = 1;
+//   let datapoints = [{month: i, amount: p}];
+
+//   for (i; i <= N_MONTHS; i++){
+
+//     let factor = 1 + r/n;
+//     factor = Math.pow(factor, n * i);
+//     let compountInterest = p * bracketsPartWithPow;
+//     let futureValue = PMT * ((bracketsPartWithPow - 1)/ (r/n));
+
+//     // {[(1 + r/n)(nt) - 1] / (r/n)}
+//   }
+
+//   return datapoints;
+// }
+
+
+
+// }
 
 app.set('port', (process.env.PORT || 3001));
 
