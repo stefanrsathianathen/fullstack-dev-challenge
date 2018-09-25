@@ -13,7 +13,7 @@ class App extends Component {
 
   constructor(props) {
         super(props);
-
+        // default values
         this.state = {
             initialSavings: 0,
             monthlyDeposit: 0,
@@ -24,7 +24,6 @@ class App extends Component {
     }
   //update value held in state
   handleValueUpdate(field, value) {
-        console.log(value);
         const parsedValue = parseFloat(value);
         this.setState({ [field]: parsedValue });
   }
@@ -39,6 +38,7 @@ class App extends Component {
     })
   }
 
+  // update graph from api call
   componentWillUpdate(nextProps, nextState) {
     this.calculateLifeTimeValue()
   }
