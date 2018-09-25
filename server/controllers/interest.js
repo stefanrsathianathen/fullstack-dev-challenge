@@ -11,7 +11,7 @@ module.exports.calculate = function calculate(interestRateFreq,initalAmount,mont
     if (i%(12/interestRateFreq)==0){
       savings *= (1+interestRate/interestRateFreq);
     }
-    savings += 100;
+    savings += monthlyDeposit;
 
     datapoints.push({month: i+1,amount:savings});
   }
